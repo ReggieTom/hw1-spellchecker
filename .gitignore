@@ -1,1 +1,15 @@
+# Compiled binaries
+a.out
+spellcheck
+*.o
+
+# macOS
+.DS_Store
+
+# Debug symbols
+*.dSYM/
+Info.plist
+
+# Generated metadata
+*.yml
 
