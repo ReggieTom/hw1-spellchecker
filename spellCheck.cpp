@@ -21,14 +21,13 @@ string normalize(string word) {
     }
     return word;
 }
-
+//Ensures the correct three filenames are run:
 int main(int argc, char* argv[]) {
-    //Ensures the correct three filenames are run:
     if (argc < 4) {
         cerr << "Usage: ./spellcheck dict.txt text.txt dictout.txt\n";
         return 1;
     }
-
+    //READ WORDS IN FILE:
     ifstream in(argv[1]); //ifstream in("smallDict.txt");
     if (!in) {
         cout << "Could not open smallDict.txt\n";
@@ -103,8 +102,7 @@ As suggested corrections, list any words in the dictionary that are obtainable b
 	•	Add one letter to the word (at any position)
 	•	Remove one letter from the word
 	•	Exchange adjacent characters
-    */
-
+    */\
 vector<string> generateSuggestions(const string& word, const Dictionary& dict) {
     vector<string> out;
  
@@ -137,4 +135,20 @@ vector<string> generateSuggestions(const string& word, const Dictionary& dict) {
     out.erase(std::unique(out.begin(), out.end()), out.end());
  
     return out;
+}
+
+void printMisspelling(string word, int lineNum, vector<string> suggestions) {
+    cout << "Line " << lineNum << ": " << word << " is misspelled";
+
+    if (!suggestions.empty()) {
+        cout << " (suggestions: ";
+        for (size_t i = 0; i < suggestions.size(); i++) {
+            cout << suggestions[i];
+            if (i + 1 < suggestions.size())
+                cout << ", ";
+        }
+        cout << ")";
+    }
+
+    cout << endl;
 }
