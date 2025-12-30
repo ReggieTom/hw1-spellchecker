@@ -1,9 +1,9 @@
 /**************************************************************
  * Scott Schmidt; Data Structures @ Illinois State University;
   IT279 Part 1 – Spell Checker
- *
- * This program checks the spelling of words in a text file.
- *
+  
+  This program checks the spelling of words in a text file.
+ 
  * The program uses three input files:
  * 1) A dictionary file that contains correctly spelled words
  * 2) A text file to check for spelling errors
@@ -31,7 +31,6 @@
  * dictionary structure is printed to the output file.
  *
  **************************************************************/
-
 
 //INCLUDE IMPORTS:
 #include <fstream> //files
@@ -62,7 +61,7 @@ int main(int argc, char* argv[]) {
         cerr << "Usage: ./spellcheck dict.txt text.txt dictout.txt\n";
         return 1;
     }
-    //READ WORDS IN FILE:
+    //READ WORDS IN FILE AND STORE IN DICTIONARY:
     ifstream in(argv[1]); //ifstream in("smallDict.txt");
     if (!in) {
         cout << "Could not open smallDict.txt\n";
