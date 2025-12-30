@@ -1,6 +1,3 @@
-Remember that this is an individual assignment. Do not discuss with your classmates (or others)
-and do not search for code on the web other than use of cppreference.com or cplusplus.com for help with the C++ language and libraries.
-
 This program comes in 3 parts. You will have two opportunities to check functionality for homework credit.
 For the first check, you will only submit Part 1, and for the second check, 
 you will submit Part 1 and Part 2. 
