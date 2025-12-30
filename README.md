@@ -16,8 +16,7 @@ printing information about each misspelled word and suggestions for possible cor
 Finally, it will print the dictionary structure to the specified output file.
 
 Format of spelling output
-For each misspelled word print the word and the line it was found on followed by information about the suggestions found, 
-followed by a blank line. Examples:
+For each misspelled word print the word and the line it was found on followed by information about the suggestions found, followed by a blank line. Examples:
 
 saed on line 5
 Suggested corrections:
