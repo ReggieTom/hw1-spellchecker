@@ -32,6 +32,8 @@ void Dictionary::destroy(Node* n) {
     if (!n) return;
     destroy(n->left);
     destroy(n->right);
+    // Dictionary owns the inserted word pointers.
+    delete n->word;
     delete n;
 }
  
@@ -45,6 +47,8 @@ void Dictionary::insert(Node*& n, std::string* wordPtr) {
     const std::string& nodeValue = *(n->word);
  
     if (value == nodeValue) {
+        // Duplicate by string value: we own the incoming pointer, so free it.
+        delete wordPtr;
         return; // duplicate by string value => do nothing
     }
  

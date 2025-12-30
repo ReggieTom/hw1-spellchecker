@@ -13,13 +13,9 @@ using namespace std;
 vector<string> generateSuggestions(const string& word, const Dictionary& dict);
 void printMisspelling(string word, int lineNum, vector<string> suggestions);
 
-// HELPER FUNCTION TO REMOVE PUNCTUATION:
-string normalize(string word);
-string normalize(string word) {
-    while (!word.empty() && ispunct(word.back())) {
-        word.pop_back(); //pop the last char punctuation
-    }
-    return word;
+// Helper: treat anything non-letter as a separator, consistent with dictionary loading.
+static inline bool isLetter(unsigned char ch) {
+    return std::isalpha(ch) != 0;
 }
 
 int main(int argc, char* argv[]) {
@@ -29,31 +25,37 @@ int main(int argc, char* argv[]) {
         return 1;
     }
 
-    ifstream in(argv[1]); //ifstream in("smallDict.txt");
+    ifstream in(argv[1]);
     if (!in) {
-        cout << "Could not open smallDict.txt\n";
+        cerr << "Could not open dictionary file: " << argv[1] << "\n";
         return 1; 
     }
     Dictionary dict; // build a dictionary from the word list. 
     string word; // find the correct words:
     char c; 
-    while (in.get(c)) {   
-        if (isalpha(c)) {
-            word += static_cast<char>(tolower(c));
+    auto flushDictWord = [&]() {
+        if (word.empty()) return;
+        if (!dict.contains(word)) {
+            dict.insert(new string(word));
+        }
+        word.clear();
+    };
+    while (in.get(c)) {
+        const unsigned char uc = static_cast<unsigned char>(c);
+        if (isLetter(uc)) {
+            word += static_cast<char>(std::tolower(uc));
         } else {
             // NON-LETTER = Word Ends
-            if (!word.empty()) {
-                string new_word = normalize(word); // each word gets own memory
-                if (!dict.contains(new_word)) {
-                    dict.insert(new string(new_word));
-                }
-            } word.clear(); 
-        } 
+            flushDictWord();
+        }
     }
+    // Handle trailing word at EOF.
+    flushDictWord();
+
     // POTENTIAL MISPELLED WORDS FILE:
-    ifstream textFile(argv[2]); //ifstream textFile("test1.txt");
+    ifstream textFile(argv[2]);
     if (!textFile) {
-        cout << "Could not open test1.txt\n";
+        cerr << "Could not open text file: " << argv[2] << "\n";
         return 1;
     }
     /*
@@ -70,20 +72,26 @@ int main(int argc, char* argv[]) {
     int lineNum = 1;
 
     while (getline(textFile, lineText)) {
-        stringstream lineStream(lineText);
-        string word;
-        while (lineStream >> word) {
-       for (size_t i = 0; i < word.size(); ++i) {
-         word[i] = static_cast<char>(std::tolower(static_cast<unsigned char>(word[i])));
+        string current;
+        auto flushTextWord = [&]() {
+            if (current.empty()) return;
+            if (!dict.contains(current)) {
+                vector<string> suggestions = generateSuggestions(current, dict);
+                printMisspelling(current, lineNum, suggestions);
+            }
+            current.clear();
+        };
+
+        for (char ch : lineText) {
+            const unsigned char uc = static_cast<unsigned char>(ch);
+            if (isLetter(uc)) {
+                current += static_cast<char>(std::tolower(uc));
+            } else {
+                flushTextWord();
+            }
         }
-        word = normalize(word);
-        if (word.empty()) continue;
-        if (!dict.contains(word)) {
-            vector<string> suggestions = generateSuggestions(word, dict);
-            printMisspelling(word, lineNum, suggestions);
-        }
-    }
-    lineNum++;
+        flushTextWord();
+        lineNum++;
     }
     //OUTPUT THE DATA STRUCUTRE:
     ofstream out(argv[3]);
@@ -137,4 +145,19 @@ vector<string> generateSuggestions(const string& word, const Dictionary& dict) {
     out.erase(std::unique(out.begin(), out.end()), out.end());
  
     return out;
+}
+
+void printMisspelling(string word, int lineNum, vector<string> suggestions) {
+    cout << word << " on line " << lineNum << "\n";
+    if (suggestions.empty()) {
+        cout << "No suggestions found\n\n";
+        return;
+    }
+    cout << "Suggested corrections:\n";
+    cout << "    ";
+    for (size_t i = 0; i < suggestions.size(); ++i) {
+        if (i) cout << "    ";
+        cout << suggestions[i];
+    }
+    cout << "\n\n";
 }
