@@ -3,3 +3,7 @@ This computer is saed yesterday.
 We will remirmand you later!
 Data-structures: stack, queue, treee.
 Spell-checker checking works.
+
+Thiss sentense has severall errorrs.
+Punctuation, shouldnt breakk things!
+Adjacnt letters are sometims swapped.
