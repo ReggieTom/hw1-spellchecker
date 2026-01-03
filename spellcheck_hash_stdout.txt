@@ -1,0 +1,90 @@
+i on line 1
+No suggestions found
+
+like on line 1
+No suggestions found
+
+and on line 1
+No suggestions found
+
+banna on line 1
+Suggested corrections:
+    banana
+
+this on line 2
+No suggestions found
+
+is on line 2
+No suggestions found
+
+saed on line 2
+Suggested corrections:
+    sad    saved
+
+yesterday on line 2
+No suggestions found
+
+we on line 3
+No suggestions found
+
+will on line 3
+No suggestions found
+
+remirmand on line 3
+No suggestions found
+
+you on line 3
+No suggestions found
+
+later on line 3
+No suggestions found
+
+treee on line 4
+Suggested corrections:
+    tree    tree    tree
+
+works on line 5
+No suggestions found
+
+thiss on line 7
+No suggestions found
+
+sentense on line 7
+No suggestions found
+
+has on line 7
+No suggestions found
+
+severall on line 7
+No suggestions found
+
+errorrs on line 7
+No suggestions found
+
+punctuation on line 8
+No suggestions found
+
+shouldnt on line 8
+No suggestions found
+
+breakk on line 8
+No suggestions found
+
+things on line 8
+No suggestions found
+
+adjacnt on line 9
+No suggestions found
+
+letters on line 9
+No suggestions found
+
+are on line 9
+No suggestions found
+
+sometims on line 9
+No suggestions found
+
+swapped on line 9
+No suggestions found
+
